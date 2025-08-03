@@ -10,7 +10,7 @@
     <title>Baby Age Calculator</title>
     <link
         rel="manifest"
-        href="/manifest.json"
+        href="manifest.json"
     />
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +21,7 @@
         <!-- Cute baby head icon -->
         <div class="flex justify-center mb-4">
             <img
-                src="/icons/baby-head.png"
+                src="icons/baby-head.png"
                 alt="Cute baby head"
                 class="w-20 h-20"
             />
@@ -61,7 +61,7 @@
 
     <script>
         async function init() {
-            const translations = await fetch('/translations.json').then(r => r.json());
+            const translations = await fetch('translations.json').then(r => r.json());
             const locale = navigator.language || 'en';
             let lang = 'en';
             if (locale.startsWith('tr')) lang = 'tr';
