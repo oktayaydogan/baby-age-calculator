@@ -1,0 +1,112 @@
+{
+    "en": {
+        "title": "Baby Age Calculator",
+        "birthDate": "Birth Date:",
+        "displayType": "Display Type:",
+        "options": {
+            "all": "All",
+            "weekly": "Weekly",
+            "daily": "Daily",
+            "monthly": "Monthly",
+            "yearly": "Yearly"
+        },
+        "alerts": {
+            "noDate": "Please select a date",
+            "futureDate": "Birth date cannot be in the future"
+        },
+        "result": {
+            "daily": "Age: {days} days",
+            "weekly": "Age: {weeks} weeks {days} days",
+            "monthly": "Age: {months} months {days} days",
+            "yearly": "Age: {years} years {months} months"
+        }
+    },
+    "tr": {
+        "title": "Bebek Yaş Hesaplayıcı",
+        "birthDate": "Doğum Tarihi:",
+        "displayType": "Gösterim Türü:",
+        "options": {
+            "all": "Tümü",
+            "weekly": "Haftalık",
+            "daily": "Günlük",
+            "monthly": "Aylık",
+            "yearly": "Yıllık"
+        },
+        "alerts": {
+            "noDate": "Lütfen bir tarih seçin",
+            "futureDate": "Doğum tarihi gelecekte olamaz"
+        },
+        "result": {
+            "daily": "Yaş: {days} gün",
+            "weekly": "Yaş: {weeks} hafta {days} gün",
+            "monthly": "Yaş: {months} ay {days} gün",
+            "yearly": "Yaş: {years} yıl {months} ay"
+        }
+    },
+    "es": {
+        "title": "Calculadora de Edad de Bebé",
+        "birthDate": "Fecha de Nacimiento:",
+        "displayType": "Tipo de Visualización:",
+        "options": {
+            "all": "Todos",
+            "weekly": "Semanal",
+            "daily": "Diario",
+            "monthly": "Mensual",
+            "yearly": "Anual"
+        },
+        "alerts": {
+            "noDate": "Por favor seleccione una fecha",
+            "futureDate": "La fecha de nacimiento no puede estar en el futuro"
+        },
+        "result": {
+            "daily": "Edad: {days} días",
+            "weekly": "Edad: {weeks} semanas {days} días",
+            "monthly": "Edad: {months} meses {days} días",
+            "yearly": "Edad: {years} años {months} meses"
+        }
+    },
+    "fr": {
+        "title": "Calculateur d'âge du bébé",
+        "birthDate": "Date de naissance :",
+        "displayType": "Type d'affichage :",
+        "options": {
+            "all": "Tous",
+            "weekly": "Hebdomadaire",
+            "daily": "Journalier",
+            "monthly": "Mensuel",
+            "yearly": "Annuel"
+        },
+        "alerts": {
+            "noDate": "Veuillez sélectionner une date",
+            "futureDate": "La date de naissance ne peut pas être dans le futur"
+        },
+        "result": {
+            "daily": "Âge : {days} jours",
+            "weekly": "Âge : {weeks} semaines {days} jours",
+            "monthly": "Âge : {months} mois {days} jours",
+            "yearly": "Âge : {years} ans {months} mois"
+        }
+    },
+    "de": {
+        "title": "Baby-Alter-Rechner",
+        "birthDate": "Geburtsdatum:",
+        "displayType": "Anzeigetyp:",
+        "options": {
+            "all": "Alle",
+            "weekly": "Wöchentlich",
+            "daily": "Täglich",
+            "monthly": "Monatlich",
+            "yearly": "Jährlich"
+        },
+        "alerts": {
+            "noDate": "Bitte wählen Sie ein Datum",
+            "futureDate": "Geburtsdatum kann nicht in der Zukunft liegen"
+        },
+        "result": {
+            "daily": "Alter: {days} Tage",
+            "weekly": "Alter: {weeks} Wochen {days} Tage",
+            "monthly": "Alter: {months} Monate {days} Tage",
+            "yearly": "Alter: {years} Jahre {months} Monate"
+        }
+    }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+    <title>Baby Age Calculator</title>
+    <link
+        rel="manifest"
+        href="/manifest.json"
+    />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
+        <!-- Cute baby head icon -->
+        <div class="flex justify-center mb-4">
+            <img
+                src="/icons/baby-head.png"
+                alt="Cute baby head"
+                class="w-20 h-20"
+            />
+        </div>
+        <h1
+            id="title"
+            class="text-2xl font-bold mb-4 text-center"
+        ></h1>
+        <div class="mb-4">
+            <label
+                for="birthDate"
+                id="labelBirthDate"
+                class="block text-sm font-medium text-gray-700"
+            ></label>
+            <input
+                type="date"
+                id="birthDate"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                for="displayType"
+                id="labelDisplayType"
+                class="block text-sm font-medium text-gray-700"
+            ></label>
+            <select
+                id="displayType"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            ></select>
+        </div>
+        <div
+            id="result"
+            class="mt-4 text-center text-lg font-medium whitespace-pre-line"
+        ></div>
+    </div>
+
+    <script>
+        async function init() {
+            const translations = await fetch('/translations.json').then(r => r.json());
+            const locale = navigator.language || 'en';
+            let lang = 'en';
+            if (locale.startsWith('tr')) lang = 'tr';
+            else if (locale.startsWith('es')) lang = 'es';
+            else if (locale.startsWith('fr')) lang = 'fr';
+            else if (locale.startsWith('de')) lang = 'de';
+            const t = translations[lang] || translations.en;
+
+            const birthDateInput = document.getElementById('birthDate');
+            const displaySelect = document.getElementById('displayType');
+            const resultDiv = document.getElementById('result');
+
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('labelBirthDate').textContent = t.birthDate;
+            document.getElementById('labelDisplayType').textContent = t.displayType;
+
+            Object.entries(t.options).forEach(([value, label]) => {
+                const opt = document.createElement('option'); opt.value = value; opt.textContent = label;
+                displaySelect.appendChild(opt);
+            });
+
+            const savedDate = localStorage.getItem('birthDate'); if (savedDate) birthDateInput.value = savedDate;
+            const savedType = localStorage.getItem('displayType'); if (savedType) displaySelect.value = savedType;
+
+            function calculate() {
+                const input = birthDateInput.value;
+                if (!input) { resultDiv.textContent = ''; return; }
+                const birthDate = new Date(input);
+                const now = new Date();
+                const diffMs = now - birthDate;
+                if (diffMs < 0) { alert(t.alerts.futureDate); return; }
+                localStorage.setItem('birthDate', input);
+                localStorage.setItem('displayType', displaySelect.value);
+
+                // Compute durations
+                const totalDays = Math.floor(diffMs / 86400000);
+                const weeks = Math.floor(totalDays / 7);
+                const daysRem = totalDays % 7;
+
+                // Month and year logic
+                let yearDiff = now.getFullYear() - birthDate.getFullYear();
+                let monthDiff = now.getMonth() - birthDate.getMonth() + yearDiff * 12;
+                let dayDiff = now.getDate() - birthDate.getDate();
+                if (dayDiff < 0) {
+                    monthDiff--;
+                    dayDiff += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                }
+                const years = Math.floor(monthDiff / 12);
+                const months = monthDiff % 12;
+
+                const type = displaySelect.value;
+                let output = '';
+                const r = t.result;
+
+                switch (type) {
+                    case 'daily':
+                        output = r.daily.replace('{days}', totalDays);
+                        break;
+                    case 'weekly':
+                        output = r.weekly.replace('{weeks}', weeks).replace('{days}', daysRem);
+                        break;
+                    case 'monthly':
+                        output = r.monthly.replace('{months}', months).replace('{days}', dayDiff);
+                        break;
+                    case 'yearly':
+                        output = r.yearly.replace('{years}', years).replace('{months}', months);
+                        break;
+                    case 'all':
+                        ['daily', 'weekly', 'monthly', 'yearly'].forEach(key => {
+                            let str = '';
+                            switch (key) {
+                                case 'daily':
+                                    str = r.daily.replace('{days}', totalDays);
+                                    break;
+                                case 'weekly':
+                                    str = r.weekly.replace('{weeks}', weeks).replace('{days}', daysRem);
+                                    break;
+                                case 'monthly':
+                                    str = r.monthly.replace('{months}', months).replace('{days}', dayDiff);
+                                    break;
+                                case 'yearly':
+                                    str = r.yearly.replace('{years}', years).replace('{months}', months);
+                                    break;
+                            }
+                            output += str + '\n';
+                        });
+                        break;
+                }
+
+                resultDiv.textContent = output;
+            }
+
+            birthDateInput.addEventListener('change', calculate);
+            displaySelect.addEventListener('change', calculate);
+            calculate();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>
